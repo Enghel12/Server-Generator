@@ -1,0 +1,38 @@
+<!--Inheriting from the base class-->
+{% extends "base.html" %}
+{% block title %} Sign-up {% endblock %}
+
+{% block text %}
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<!--Including a html file that is used to flash messages to the user-->
+{% include "flash_messages.html" %}
+
+<!--Opening a new block in flask to add a form inside-->
+{% block form %}
+   <div class="rectangle" style="display: flex; justify-content: center; align-items: center; flex-direction:column;">
+
+      <h3>Create account</h3>
+           <!--Creating a form for the user in order to create an account-->
+           <form action="#" method="post">
+              <p>Username:</p>
+              <input type="text" name="user">
+              <p>Password:</p>
+              <input type="password" name="password">
+              <p>Email:</p>
+              <input type="text" name="email">
+              <br>
+              <input type="submit" value="Submit">
+            </form>
+   </div>
+   <div class="narrow-rectangle"></div>
+   <div class="last-rectangle"></div>
+{% endblock %}
+{% endblock %}
+
+
+
+
+
+
+

@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+
+{% block title %} Login {% endblock %}
+
+<!--Overriding the block text from the base template-->
+{% block text %}
+
+<!--Including a html file that is used to flash messages to the user-->
+{% include "flash_messages.html" %}
+
+<!--Using the rectangle class to make the monitor appear on the login page-->
+<div class="rectangle" style="display: flex; justify-content: center; align-items: center; flex-direction:column;">
+    <h3>Login</h3>
+
+    <!--Creating a form for the user to login-->
+    <form action="#" method="post">
+        <p>Username:</p>
+        <input type="text" name="user">
+        <p>Password:</p>
+        <input type="password" name="password">
+        <br>
+        <input type="submit" value="Submit">
+    </form>
+
+</div>
+
+<div class="narrow-rectangle"> </div>
+<div class="last-rectangle"> </div>
+
+<!--End of the block text-->
+{% endblock %}

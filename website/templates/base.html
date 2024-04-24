@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{% block title %} {% endblock %}</title>
+  <link rel="stylesheet" type="text/css">
+  <!-- Adding bootstrap to the base template -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+  <style>
+    /* Creating four shapes in CSS to represent a monitor */
+    .rectangle-container {
+      display: flex;
+      flex-direction: column;
+      justify-content: center; /* Center horizontally */
+      align-items: center; /* Center vertically */
+      height: 100vh; /* Set the height of the container to full viewport height */
+    }
+    .rectangle {
+      border: 20px solid black;
+      background-color: transparent;
+      width: calc(2/3 * 100vw); /* 2/3 of the viewport width */
+      height: 70%; /* Half of the container's height */
+      border-radius: 20px; /* Curvy corners */
+    }
+    .narrow-rectangle {
+      border: 10px solid black;
+      background-color: black;
+      width: 3%;
+      height: 10%;
+    }
+    .last-rectangle {
+      border: 10px solid black;
+      background-color: black;
+      width: 6%;
+      height: 1%;
+    }
+    /* Center the text vertically */
+    .centered-text {
+      position: relative; /* Position the text absolutely */
+      top: 50%; /* Move it 50% down from the top */
+      transform: translateY(-50%); /* Then move it up by half its height */
+      width: 100%; /* Make it take full width */
+      text-align: center; /* Center align the text */
+    }
+    /* Add space between each line of text */
+    .centered-text h1 {
+      margin-bottom: 20px;
+      font-size: 2em;
+      letter-spacing: 10px;
+      animation: typing 2s steps(18), cursor .4s step-end infinite alternate;
+    }
+    /*Creating space between each h1 element*/
+    .centered-text h1 {
+      margin-bottom: 5%;
+    }
+    /*Creating the typewriter text animation*/
+    @keyframes typing {
+      from {
+        width: 0;
+      }
+      to {
+        width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Adding a navigation bar to the base template -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark p-3">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="/">Server generator</a>
+      <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNavDropdown">
+        <ul class="navbar-nav ms-auto">
+          <li class="nav-item">
+            <a class="nav-link mx-2 active" href="/sign-up">Sign-up</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link mx-2 active" href="/login">Login</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+
+  <!--Creating a new block by using flask, the content will be overriden in child template-->
+  <div class="rectangle-container">{%block text %}
+  {% endblock %}
+  </div>
+
+  <!-- Adding the JavaScript bundle to our webpage -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+</html>

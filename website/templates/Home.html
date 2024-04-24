@@ -1,0 +1,17 @@
+<!--Inheriting from the base class-->
+{% extends "base.html" %}
+{% block title %} Home {% endblock %}
+{% block text %}
+<!--Overriding this block from the parent template-->
+   <div class="rectangle">
+    <!--In this child template, text will appear to the center of the screen-->
+      <div class="centered-text">
+        <h1>Welcome to the Server Generator.To create or access a server, log in</h1>
+        <h1>To do that, click on the login button in the right corner</h1>
+        <h1>However, if you don't have an account, click on the sign-up</h1>
+      </div>
+    </div>
+    <div class="narrow-rectangle"></div>
+    <div class="last-rectangle"></div>
+{% endblock %}
+
