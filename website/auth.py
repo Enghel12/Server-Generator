@@ -1,5 +1,5 @@
-from flask import Blueprint, render_template, request, flash
-from website import initialize_database
+from flask import Blueprint, render_template, request, flash, redirect, url_for
+from website import initialize_database, initialize_second_db
 import re
 
 #Creating a blueprint called auth
@@ -13,6 +13,7 @@ def login():
         user = request.form['user']
         password = request.form['password']
 
+
         #Calling this function to see if the current account exists
         account_data = [user, password]
         current_route = 'log_in'
@@ -20,9 +21,9 @@ def login():
 
         if logged_in:
             flash('You have successfully logged in', category='success')
-            return render_template('login.html')
+            return redirect(url_for('views.generate_server', account_name=user))
         else:
-            flash('Failed to log in', category='error')
+            flash('Failed to log in, wrong username or password, try again', category='error')
             return render_template('login.html')
     else:
         return render_template('login.html')
@@ -61,19 +62,23 @@ def sign_up():
         invalid_input = validate_input(user, password, email)
 
         if invalid_input:
-            #If input is invalid, redirect the user to the same page and ask for input again
-            return render_template("/sign-up.html")
+            # If input is not valid, redirect the user to the same web page
+            return render_template('/sign-up.html')
         else:
             #Storing the data to a python list
             account_data = [user, password, email]
-            # Sending the form input to database to store the new account
-            username_already_in_use = initialize_database.create_connector(account_data, 'sign_up')
 
-            #If username already exists flash a message to the user
-            if username_already_in_use:
-                flash('Error, username is already in use,try a different one', category='error')
+            try:
+                initialize_database.create_connector(account_data, 'sign_up')
+            except ValueError as e:
+                flash(str(e), category='error')
+                return render_template('/sign-up.html')
+            else:
+                #If no exception occurred, tell the user that the account was created by flashing a message
+                flash('Account was created successfully', category='success')
+                return redirect(url_for('auth.login'))
 
-            return render_template('/sign-up.html')
+
     else:
         # If the request is get, we will just render the html web page to the user
         return render_template("/sign-up.html")

@@ -1,0 +1,22 @@
+<!--Inheriting from the base class-->
+{% extends "base.html" %}
+
+{% block title %} Your server: {% endblock %}
+
+{% block text %}
+<div class="rectangle" style="display: flex; justify-content: center; align-items: center; flex-direction:column;">
+  <h3>Hello {{settings[1]}} here is your server and its settings:</h3>
+  <br>
+  <br>
+  <h4 style="font-weight:normal; letter-spacing:3px;">Server_name: {{settings[2]}} </h4> <br>
+  <h4 style="font-weight:normal; letter-spacing:3px;">Server_password: {{settings[3]}}</h4> <br>
+  <h4 style="font-weight:normal; letter-spacing:3px;">Server_color: {{settings[4]}}</h4> <br>
+  <h4 style="font-weight:normal; letter-spacing:3px;">Player_limit: {{settings[5]}}</h4> <br>
+</div>
+
+<div class="narrow-rectangle"> </div>
+<div class="last-rectangle"> </div>
+
+{% endblock %}
+</html>
+

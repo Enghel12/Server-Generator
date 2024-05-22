@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+
+
+<!--Overriding the name of the base page-->
+{% block title %} Server-Generator {% endblock %}
+
+<!--Using jinja2 to change the text that appears on the navigation bar-->
+{% block sign_up %}  {% endblock %}
+
+{% block redirect_user %}
+<a class="nav-link mx-2 active" href="/"> Logout </a>
+{% endblock %}
+
+{% block text %}
+
+{% include "flash_messages.html" %}
+<div class="rectangle" style="display: flex; justify-content: center; align-items: center; flex-direction:column;">
+
+    <h1>Generate server</h1>
+    <div style="width: 30%; height: 70%; background-color: transparent; border: 15px solid black; border-radius: 20px; display:flex; flex-direction:column; justify-content:center;align-items:center";>
+    <!--Creating a new form for the user. The purpose of the form is to let the user enter the settings for the server-->
+        <form action="#", method="post">
+            <h3>Enter the name of the server</h3>
+            <br>
+            <input type="text" name="server_name">
+
+            <h3>Enter the password for the server</h3>
+            <br>
+            <input type="password" name="server_password">
+
+            <h3>Enter a color for the server</h3>
+            <br>
+            <input type="text" name="color">
+
+            <h3>Enter a player limit for the server</h3>
+            <br>
+            <input type="text" name="player_limit">
+
+            <br>
+             <input type="submit" value="Create Server" style="background-color: #000000;
+             border: none;
+             color: white;
+             padding: 10px 26px;
+             text-align: center;
+             text-decoration: none;
+             display: inline-block;
+             font-size: 16px;
+             margin: 4px 2px;
+             transition-duration: 0.4s;
+             cursor: pointer;
+             border-radius: 6px;>
+             border-radius: 6px;">
+        </form>
+    </div>
+
+</div>
+<div class="narrow-rectangle"></div>
+<div class="last-rectangle"></div>
+{% endblock %}

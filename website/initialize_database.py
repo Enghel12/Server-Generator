@@ -1,45 +1,56 @@
 import mysql.connector
 from flask import request
+from datetime import datetime
+
 
 def store_data(cursor, account_data, db):
-    found_username = False
 
-    #Get all the names from the database table
-    cursor.execute('SELECT Name FROM Users')
+    #Getting all the usernames stored inside the database
+    cursor.execute('SELECT Username FROM Users')
     for names in cursor:
         stored_name = names[0]
-        #If the username already exists inside the database, return True
+        # If the username already exists inside the database, raise an exception
         if account_data[0] == stored_name:
-            found_username = True
+            raise ValueError("Username already in use, please use a different one")
 
-    #If the username already exists, return true
-    if found_username:
-        return True
-    else:
-        # Storing all the new accounts to database if the request is POST
-        cursor.execute('INSERT INTO Users (Name,Password,Email) VALUES (%s,%s,%s)', (account_data[0], account_data[1], account_data[2]))
-        db.commit()
-        return False
+
+    #Getting all the emails stored inside the database
+    cursor.execute('SELECT Email FROM Users')
+    for emails in cursor:
+        stored_email = emails[0]
+        # If the email is already in use raise an exception
+        if account_data[2] == stored_email:
+            raise ValueError("Email already in use, please use a different one")
+
+
+    # Storing all the new accounts to database if the request is POST
+    cursor.execute('INSERT INTO Users (Username,Password,Email) VALUES (%s,%s,%s)', (account_data[0], account_data[1], account_data[2]))
+    db.commit()
+
 
 
 #This function checks if the accounts exists and if the current accounts has the right credentials
 def check_account(current_account, cursor):
+    cursor.execute('SELECT * FROM Users')
+    table_rows = cursor.fetchall()
+
     current_username = current_account[0]
     current_password = current_account[1]
 
     #Searching for an account inside database that corresponds to the username entered via form
-    cursor.execute("SELECT * FROM Users WHERE Name='" + current_username + "'")
+    cursor.execute("SELECT * FROM Users WHERE Username='" + current_username + "'")
     #Storing the row found to the variable 'table_row'
     table_row = cursor.fetchone()
 
     #If the username and password correspond to the table row, return True
-    if table_row and table_row[2] == current_password:
+    if table_row and table_row[1] == current_password:
+        #Getting the id of the user after logging in to search for it in the second database
         return True
     return False
 
 
 def create_connector(account_data, current_route):
-    username_already_in_use = False
+
     try:
         #Creating a connection between the database called Accounts and Python by using a Mysql connector
         db = mysql.connector.connect(
@@ -58,16 +69,14 @@ def create_connector(account_data, current_route):
         #If the user wants to sign_up, call the function store_data
         if request.method == 'POST' and current_route == 'sign_up':
             try:
-                username_already_in_use = store_data(cursor, account_data, db)
+                store_data(cursor, account_data, db)
             except mysql.connector.Error as err:
                 # If data could not be stored inside the database, print the error
                 print("Error storing data to database {}", format(err))
-            finally:
-                # Regardless of whether an exception was raised or not, close the database connection if it exists
-                if 'db' in locals() or 'db' in globals():
-                    db.close()
 
-            return True if username_already_in_use else False
+            # Regardless of whether an exception was raised or not, close the database connection if it exists
+            db.close()
+
 
         #If the user wants to log in, call check_account function
         if request.method == 'POST' and current_route == 'log_in':
