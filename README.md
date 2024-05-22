@@ -1,4 +1,4 @@
-# Project Purpose
+# Purpose of the project
 This project is a web application designed to automate web page creation using Flask, Jinja2, HTML, and Bootstrap. It allows users to have their own web pages after creating an account.
 
 ## Main Page
