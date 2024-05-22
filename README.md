@@ -18,7 +18,7 @@ After a successfull log in, the user will be redirected to the Generate Server P
 Here the user will need to create their own web page and manually input the following:  Server_Name, Server_Password, Server_Color and the Player_Limit. After saving these
 settings, the user will finally be redirected to their own webpage.
 
-## How the web page is generated
+## How the User's own web page is generated
 Whenever a new user creates a web page and inputs the settings through a form, the Account name and the Server Settings are all moved and stored inside a second Sql Database.
 After that, they will be automatically redirected to their own webpage.
 
